@@ -1,10 +1,11 @@
 from collections import deque
 from itertools import product
 from random import shuffle
-from typing import Iterable as IterableType, Iterable, Optional, List
+from typing import Optional, List
 
 from cards.card import Card
-from cards.dictionary import SUITS, VALUES
+from cards.configuration import SUITS, VALUES
+from cards.utils import method_dispatch
 
 
 class Deck:
@@ -35,16 +36,38 @@ class Deck:
         except IndexError:
             return None
 
-    def put_card_on_bottom(self, card: [Card, IterableType]) -> None:
+    @method_dispatch
+    def put_card_on_bottom(self, card) -> None:
         """
-        Puts given card or iterable of cards on the bottom of deque
-        :param card: Card instance or Itarable
+        Generic dispatch method which allows for different actions
+        for different data types.
+        :param card: Card instance or Iterable
         :return: None
         """
-        if isinstance(card, Iterable):
-            self.cards.extendleft(card)
-        else:
-            self.cards.appendleft(card)
+        raise NotImplementedError(
+            'put_card_on_bottom accept Card instance or iterable of Card'
+        )
+
+    @put_card_on_bottom.register
+    def _(self, card: Card) -> None:
+        """
+        Puts given card on the bottom of deque
+        :param card: Card instance
+        :return: None
+        """
+
+        self.cards.appendleft(card)
+
+    @put_card_on_bottom.register
+    def _(self, cards: list) -> None:
+        """
+        Puts given iterable of cards on the bottom of deque
+        :param cards: Iterable[Card]
+        :return: None
+        """
+        # FIXME this method should accept only list of Card (List[Card])
+
+        self.cards.extendleft(cards)
 
 
 deck = Deck(SUITS, VALUES)

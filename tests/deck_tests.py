@@ -3,11 +3,12 @@ from copy import deepcopy
 
 from cards.card import Card
 from cards.deck import Deck
+from cards.configuration import SUITS, VALUES
 
 
 class DeckTestCase(unittest.TestCase):
     def setUp(self):
-        self.deck = Deck()
+        self.deck = Deck(SUITS, VALUES)
 
     def test_deck_has_52_cards(self):
         self.assertEqual(len(self.deck.cards), 52)
@@ -43,6 +44,11 @@ class DeckTestCase(unittest.TestCase):
         self.deck.put_card_on_bottom(cards)
         self.assertEqual(self.deck.cards.popleft(), cards[1])
         self.assertEqual(self.deck.cards.popleft(), cards[0])
+
+    @unittest.expectedFailure  # FIXME delete when method will accept only List[Card] type
+    def test_can_put_card_on_bottom_accept_only_iterable_of_card(self):
+        with self.assertRaises(NotImplementedError) as context:
+            self.deck.put_card_on_bottom([1, 2, 3])
 
 
 if __name__ == '__main__':
