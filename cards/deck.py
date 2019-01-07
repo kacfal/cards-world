@@ -38,7 +38,7 @@ class Deck:
     def put_card_on_bottom(self, card: [Card, IterableType]) -> None:
         """
         Puts given card or iterable of cards on the bottom of deque
-        :param card: Card instance or Itarable
+        :param card: Card instance or Iterable
         :return: None
         """
         if isinstance(card, Iterable):
