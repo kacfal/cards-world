@@ -19,9 +19,17 @@ class Deck:
         return str(self.cards)
 
     def shuffle(self) -> None:
+        """
+        Shuffle deck of cards with random.shuffle() function
+        :return: None
+        """
         shuffle(self.cards)
 
     def deal_card(self) -> Optional[Card]:
+        """
+        Returns card from the top of the deck
+        :return: Deck or None
+        """
         try:
             return self.cards.pop()
         except IndexError:
