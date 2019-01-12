@@ -41,6 +41,7 @@ class Deck:
         """
         Generic dispatch method which allows for different actions
         for different data types.
+
         :param card: Card instance or Iterable
         :return: None
         """
