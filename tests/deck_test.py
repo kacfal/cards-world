@@ -6,6 +6,7 @@ from cards.deck import Deck
 from cards.configuration import SUITS, VALUES
 
 
+# TODO Refactor with pytest
 class DeckTestCase(unittest.TestCase):
     def setUp(self):
         self.deck = Deck(SUITS, VALUES)
