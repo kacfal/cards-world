@@ -1,4 +1,4 @@
-from cards.deck import Deck
+from cards.deck import deck
 
 
 class Player:
@@ -13,5 +13,4 @@ class Game:
 
 
 if __name__ == '__main__':
-    deck = Deck()
     deck.shuffle()
